@@ -56,7 +56,8 @@ after_scale_high = img_high//4
 after_scale_width = (after_scale_high*scale_width)//scale_high
 
 pre_img3 = cv2.imread(scale_dir) 
-img3 = cv2.resize(pre_img3, (after_scale_high, after_scale_width))
+# 引数がwidth, highの順番であることに注意
+img3 = cv2.resize(pre_img3, (after_scale_width, after_scale_high))
 
 
 
@@ -70,15 +71,18 @@ print("img_high = {}, img_width = {}".format(img_high, img_width))
 print(img1.shape)
 print("scale_high = {}, scale_width = {}".format(scale_high, scale_width))
 print(img2.shape)
+print("img3.shape")
+print(img3.shape)
 print("after_scale_high = {}, after_scale_width = {}".format(after_scale_high, after_scale_width))
 print(after_image.shape)
 
 # img3 = cv2.resize(pre_img3, (100, 100))
 # after_image[0 : after_scale_high, 0 : after_scale_width] = img3
 
-# after_image[y_offset : y_offset + after_scale_high, x_offset : x_offset + after_scale_width] = img3
-# cv2.imwrite(after_image_dir, after_image)
-
+after_image[y_offset : y_offset + after_scale_high, 0 : after_scale_width] = img3
+cv2.imwrite(after_image_dir, after_image)
+pre_array_obj3 = plt.imread(after_image_dir)
+plt.imshow(pre_array_obj3)
 
 
 
